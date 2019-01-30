@@ -24,5 +24,7 @@
 - run `docker container run -d -p 8181:8181 --name laravel_1 efrat19/laravel`
 - open your browser at localhost:8181 to see the result
 
-### Cleanup the mess:
-`docker rm -f database laravel_1`
+
+###### when you're done:
+### Cleanup the mess :
+`docker container rm -f database laravel_1`
