@@ -20,9 +20,9 @@
   - make sure you're inside the project directory
   -  run `docker build -t <whatever> .`
   
-###Show Time:
+### Show Time:
 - run `docker container run -d -p 8181:8181 --name laravel_1 efrat19/laravel`
 - open your browser at localhost:8181 to see the result
 
-###Cleanup the mess:
+### Cleanup the mess:
 `docker rm -f database laravel_1`
