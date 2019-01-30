@@ -1,7 +1,4 @@
 <span align="right"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></span>
-<span align="left"><img src="https://avatars0.githubusercontent.com/u/5429470?s=200&v=4></span>
-
-
 <p align="center"></p>
 
 ### Get ready:
