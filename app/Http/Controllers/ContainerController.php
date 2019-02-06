@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Container;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Validator;
 class ContainerController extends Controller
 {
     /**
@@ -36,14 +36,12 @@ class ContainerController extends Controller
      */
     public function store(Request $request)
     {
-        // validate
-        // read more on validation at http://laravel.com/docs/validation
         header('Access-Control-Allow-Origin: *');
         $rules = array(
             'name'       => 'required',
             'port'      => 'required|numeric',
         );
-        $validator = Validator::make(Request::all(), $rules);
+        $validator = Validator::make($request->all(), $rules);
 
         // process the login
         if ($validator->fails()) {
@@ -52,8 +50,8 @@ class ContainerController extends Controller
         } else {
             // store
             $container=new Container();
-            $container->name=Request::get('name');
-            $container->port=Request::get('port');
+            $container->name=$request->get('name');
+            $container->port=$request->get('port');
             $container->save();
             return response('success', 200)
                 ->header('Content-Type', 'text/plain');
