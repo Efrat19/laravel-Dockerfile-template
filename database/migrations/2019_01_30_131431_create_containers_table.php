@@ -15,6 +15,9 @@ class CreateContainersTable extends Migration
     {
         Schema::create('containers', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('name')->unique()->nullable();
+            $table->integer('port')->nullable();
+            $table->string('volume')->nullable();
             $table->timestamps();
         });
     }

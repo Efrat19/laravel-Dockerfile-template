@@ -14,7 +14,8 @@ class ContainerController extends Controller
      */
     public function index()
     {
-        //
+        header('Access-Control-Allow-Origin: *');
+        return Container::all();
     }
 
     /**
@@ -24,7 +25,7 @@ class ContainerController extends Controller
      */
     public function create()
     {
-        //
+        header('Access-Control-Allow-Origin: *');
     }
 
     /**
@@ -35,7 +36,28 @@ class ContainerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // validate
+        // read more on validation at http://laravel.com/docs/validation
+        header('Access-Control-Allow-Origin: *');
+        $rules = array(
+            'name'       => 'required',
+            'port'      => 'required|numeric',
+        );
+        $validator = Validator::make(Request::all(), $rules);
+
+        // process the login
+        if ($validator->fails()) {
+            return response('failed', 500)
+                ->header('Content-Type', 'text/plain');
+        } else {
+            // store
+            $container=new Container();
+            $container->name=Request::get('name');
+            $container->port=Request::get('port');
+            $container->save();
+            return response('success', 200)
+                ->header('Content-Type', 'text/plain');
+        }
     }
 
     /**
@@ -47,6 +69,7 @@ class ContainerController extends Controller
     public function show(Container $container)
     {
         //
+        dd('test');
     }
 
     /**
@@ -57,7 +80,7 @@ class ContainerController extends Controller
      */
     public function edit(Container $container)
     {
-        //
+        header('Access-Control-Allow-Origin: *');
     }
 
     /**
@@ -69,7 +92,7 @@ class ContainerController extends Controller
      */
     public function update(Request $request, Container $container)
     {
-        //
+        header('Access-Control-Allow-Origin: *');
     }
 
     /**
@@ -80,6 +103,6 @@ class ContainerController extends Controller
      */
     public function destroy(Container $container)
     {
-        //
+        header('Access-Control-Allow-Origin: *');
     }
 }

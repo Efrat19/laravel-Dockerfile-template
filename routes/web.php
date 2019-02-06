@@ -10,6 +10,8 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+//phpinfo();
+Route::resource('/container', 'ContainerController');
 
 Route::get('/', function () {
     return view('welcome');
