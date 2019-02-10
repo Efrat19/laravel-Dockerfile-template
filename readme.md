@@ -9,7 +9,10 @@
    - DB_HOST=database
    - DB_PASSWORD=secret
 - run the database container:  
-    `docker container run -d --name database -p 3306:3306 -e MYSQL_ROOT_PASSWORD=secret MYSQL_DATABASE=docker_db -v :/var/lib/mysql`
+    `docker container run -d --name database -p 3306:3306
+     -e MYSQL_ROOT_PASSWORD=secret
+      -e MYSQL_DATABASE=docker_db 
+      -v :/var/lib/mysql`
 
 ### Grab my image:
 - to pull the existing image
