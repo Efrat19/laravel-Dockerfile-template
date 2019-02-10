@@ -3,6 +3,15 @@
 
 ### Get ready:
 - make sure ports 8181 and 3306 are clear.
+- clone this repo: 
+
+   `git clone https://github.com/Efrat19/laravel-Dockerfile-template.git`
+- get inside:
+ 
+    `cd laravel-Dockerfile-template`
+- create the .env file: 
+
+    `touch .env && cat .env.example > .env`
 - in the .env file, define:
    - DB_HOST=database
    - DB_DATABASE=docker_db
