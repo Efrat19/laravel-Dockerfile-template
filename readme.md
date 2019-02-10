@@ -3,16 +3,7 @@
 
 ### Get ready:
 - make sure ports 8181 and 3306 are clear.
-- clone this repo: 
-
-   `git clone https://github.com/Efrat19/laravel-Dockerfile-template.git`
-- get inside:
- 
-    `cd laravel-Dockerfile-template`
-- create the .env file: 
-
-    `touch .env && cat .env.example > .env`
-- in the .env file, define:
+- in your .env file, define:
    - DB_HOST=database
    - DB_DATABASE=docker_db
 - run the database container:  
@@ -26,8 +17,8 @@
   run `docker pull efrat19/laravel`
   #### OR
   
-- to build from the local Dockerfile:
-  - make sure you're inside the project directory
+- to build from the local Dockerfile: 
+  - copy my Dockerfile to your root directory
   -  run `docker build -t <whatever> .`
   
 ### Show Time:
