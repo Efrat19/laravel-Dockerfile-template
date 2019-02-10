@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Container;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+
 class ContainerController extends Controller
 {
     /**
@@ -14,7 +15,33 @@ class ContainerController extends Controller
      */
     public function index()
     {
+        $dir = '/containersData';
         header('Access-Control-Allow-Origin: *');
+        $cons = array();
+        Container::truncate();
+        foreach (scandir($dir) as $row) {
+            $subdir = $dir . '/' . $row;
+            if (is_dir($subdir)) {
+                $file = $subdir . '/config.v2.json';
+                if (is_file($file)) {
+                    $cons[] = json_decode(file_get_contents($file));
+                    $con = json_decode(file_get_contents($file));
+                    if(filter_var(    \GuzzleHttp\json_encode($con->State->Running), FILTER_VALIDATE_BOOLEAN)){
+                        $container=new Container();
+                        $container->name=\GuzzleHttp\json_encode($con->Name);
+                        if(!empty(\GuzzleHttp\json_encode($con->NetworkSettings->Ports))){
+                        $container->port=\GuzzleHttp\json_encode($con->NetworkSettings->Ports);
+                        }
+                        if(!empty(\GuzzleHttp\json_encode($con->Config->Volumes))){
+
+                        $container->volume=\GuzzleHttp\json_encode($con->Config->Volumes);
+                        }
+                        $container->save();
+                    }
+                }
+            }
+        }
+
         return Container::all();
     }
 
@@ -31,15 +58,15 @@ class ContainerController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
         header('Access-Control-Allow-Origin: *');
         $rules = array(
-            'name'       => 'required',
-            'port'      => 'required|numeric',
+            'name' => 'required',
+            'port' => 'required|numeric',
         );
         $validator = Validator::make($request->all(), $rules);
 
@@ -49,9 +76,9 @@ class ContainerController extends Controller
                 ->header('Content-Type', 'text/plain');
         } else {
             // store
-            $container=new Container();
-            $container->name=$request->get('name');
-            $container->port=$request->get('port');
+            $container = new Container();
+            $container->name = $request->get('name');
+            $container->port = $request->get('port');
             $container->save();
             return response('success', 200)
                 ->header('Content-Type', 'text/plain');
@@ -61,7 +88,7 @@ class ContainerController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Container  $container
+     * @param  \App\Container $container
      * @return \Illuminate\Http\Response
      */
     public function show(Container $container)
@@ -73,7 +100,7 @@ class ContainerController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Container  $container
+     * @param  \App\Container $container
      * @return \Illuminate\Http\Response
      */
     public function edit(Container $container)
@@ -84,8 +111,8 @@ class ContainerController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Container  $container
+     * @param  \Illuminate\Http\Request $request
+     * @param  \App\Container $container
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Container $container)
@@ -96,11 +123,12 @@ class ContainerController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Container  $container
+     * @param  \App\Container $container
      * @return \Illuminate\Http\Response
      */
     public function destroy(Container $container)
     {
+
         header('Access-Control-Allow-Origin: *');
     }
 }
