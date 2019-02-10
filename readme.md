@@ -6,8 +6,6 @@
 - in the .env file, define:
    - DB_HOST=database
    - DB_DATABASE=docker_db
-   - DB_HOST=database
-   - DB_PASSWORD=secret
 - run the database container:  
     `docker container run -d --name database -p 3306:3306
      -e MYSQL_ROOT_PASSWORD=secret
