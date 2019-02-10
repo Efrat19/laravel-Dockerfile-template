@@ -12,7 +12,7 @@
     `docker container run -d --name database -p 3306:3306
      -e MYSQL_ROOT_PASSWORD=secret
       -e MYSQL_DATABASE=docker_db 
-      -v :/var/lib/mysql`
+      -v :/var/lib/mysql mysql`
 
 ### Grab my image:
 - to pull the existing image
